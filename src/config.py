@@ -33,5 +33,6 @@ COOKIES = {
     'WNMCID'	     :  "aomccp.1750860197302.01.0",
 }
 
-LYRIC_URL_PRE = 'https://music.163.com/weapi/song/lyric?csrf_token='
-SONG_ORG_URL_PRE = 'https://music.163.com/song?id='
+LYRIC_URL = 'https://music.163.com/weapi/song/lyric'
+SONG_ORG_URL = 'https://music.163.com/song'
+COMMENT_URT = 'https://music.163.com/weapi/comment/resource/comments/get'
