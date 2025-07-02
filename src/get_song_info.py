@@ -78,7 +78,7 @@ tqdm.pandas()
 # df_songs.to_csv(restore_file, header=True, index=False)
 chunk_size = 100
 total_rows = len(df_songs)
-restart_from_pause = 2701
+restart_from_pause = 4301
 
 for start in tqdm(range(restart_from_pause, total_rows, chunk_size), desc='Chunks'):
     end = min(start + chunk_size, total_rows)
