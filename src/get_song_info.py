@@ -13,8 +13,8 @@ import config
 from pyncm.utils.crypto import WeapiEncrypt
 
 # %%
-df_songs = pd.read_csv("../data/raw_songs.csv")
-restore_file = "../data/song_info.csv"
+df_songs = pd.read_csv(config.WORKSPACE + "data/raw_songs.csv")
+restore_file = config.WORKSPACE + "data/song_info.json"
 
 
 # %%
@@ -43,7 +43,7 @@ def get_song_info(row):
         data=enc_data,
     )
     raw_lyric = lyric_response.json()["lrc"]["lyric"]
-    real_lyric = re.sub(r"\[\d\d\:\d\d\.\d\d\d\]", "", raw_lyric, count=0, flags=0)
+    real_lyric = re.sub(r"\[[\d\:\.]+\]", "", raw_lyric, count=0, flags=0)
 
     # get comments
     data = {
@@ -65,13 +65,31 @@ def get_song_info(row):
     row["lyric"] = real_lyric
     row["comments"] = comments
 
-    global df_songs
-    if row.index % 100 == 0:
-        df_songs.to_csv(restore_file, header=True, index=False)
+    # global df_songs
+    # if row.name % 100 == 0:
+    #     df_songs.to_csv(restore_file, header=True, index=False)
+    return row
 
 
 # %%
 tqdm.pandas()
-df_songs.progress_apply(get_song_info, axis=1)
+# df_songs.progress_apply(get_song_info, axis=1)
 
-df_songs.to_csv(restore_file, header=True, index=False)
+# df_songs.to_csv(restore_file, header=True, index=False)
+chunk_size = 100
+total_rows = len(df_songs)
+restart_from_pause = 2701
+
+for start in tqdm(range(restart_from_pause, total_rows, chunk_size), desc='Chunks'):
+    end = min(start + chunk_size, total_rows)
+    
+    df_songs.iloc[start: end].progress_apply(get_song_info, axis=1).to_json(
+        restore_file, 
+        mode='a', 
+        lines=True, 
+        orient='records', 
+        force_ascii=False,
+    )
+    
+    # df_songs.iloc[start: end] = current_chunk
+    

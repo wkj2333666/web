@@ -1,4 +1,4 @@
-./src/config.py
-./data
-./src/__pycache__
-./src/.ruff_cache
+src/config.py
+data/
+src/__pycache__/
+src/.ruff_cache/
