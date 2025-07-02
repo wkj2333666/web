@@ -1,22 +1,4 @@
-# %%
-import numpy as np
-import pandas as pd
-import re
-import requests
-import lxml
-from bs4 import BeautifulSoup as bs
-from tqdm import tqdm
-import time
-
-
-# %%
-sex = '女歌手'
-df_singers = pd.read_csv(rf'./{sex}.csv')
-df_singers
-
-# %%
-# dict_songs = dict()
-headers = {
+HEADERS = {
     "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:140.0) Gecko/20100101 Firefox/140.0",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.5",
@@ -30,7 +12,7 @@ headers = {
     "Priority": "u=4",
     "TE": "trailers"
 }
-cookies = {
+COOKIES = {
     '__csrf'         :  "e69faeccd93a14d89ccd4adaed646804",
     '__snaker__id'	 :  "2mTQGljb7kvL842G",
     '_iuqxldmzr_'	 :  "32",
@@ -51,48 +33,5 @@ cookies = {
     'WNMCID'	     :  "aomccp.1750860197302.01.0",
 }
 
-df_songs = pd.DataFrame({
-    '歌手': [],
-    '歌曲': [],
-    '歌曲链接': []
-})
-tqdm.pandas()
-
-def get_songs(row):
-    response = requests.get(url=row.链接, headers=headers, params={}, cookies=cookies)
-    soup = bs(response.text, 'lxml')
-    # print(soup.prettify())
-    # pbar = tqdm.get_lock().get_instances()[0]
-    # pbar.set_description_str(f'processing {row.歌手}')
-
-    song_names = [song.text for song in soup.find_all('a', href=re.compile(r'/song\?id=\d'))]
-    song_links = [r'https://music.163.com' + song['href'] for song in soup.find_all('a', href=re.compile(r'/song\?id=\d'))]
-
-    global df_songs
-    df_songs = pd.concat(
-        [
-            df_songs,
-            pd.DataFrame({
-                '歌手': [row.歌手 for _ in range(len(song_names))],
-                '歌曲': song_names,
-                '歌曲链接': song_links
-            })
-        ],
-        ignore_index=True
-    ) 
-    # return df_songs_new
-    # time.sleep(2.0)
-
-    
-
-# %%
-df_singers.progress_apply(get_songs, axis=1)
-
-# %%
-df_songs.to_csv(rf'./{sex}歌曲.csv', header=True, index=False)
-
-# %%
-
-
-
-# %%
+LYRIC_URL_PRE = 'https://music.163.com/weapi/song/lyric?csrf_token='
+SONG_ORG_URL_PRE = 'https://music.163.com/song?id='

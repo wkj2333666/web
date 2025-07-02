@@ -5,9 +5,14 @@
         <title>Title</title>
     </head>
     <body>
+        <p>
+            <div style="font-size: 100px" color=blue>title</div>
+        </p>
         <ul>
             {% for song in songs %}
-                <li>{{ song.song_name }}</li>
+                <li>
+                    <a href={{song.song_link}}>{{ song.song_name }}</a>
+                </li>
             {% endfor %}
         </ul>
     </body>
