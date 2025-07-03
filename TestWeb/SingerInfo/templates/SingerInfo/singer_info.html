@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% comment %} <meta background=red> {% endcomment %}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{{ singer.singer_name }}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div align="middle">
+            <h1 color=blue>{{ singer.singer_name }}</h1>
+        </div>
+        <div>
+            <p style="padding: 50px">
+                &emsp;&emsp;{{ singer.singer_abstract }}
+            </p>
+        </div>
+
+        <div align="middle">
+            {% load static %}
+            <img src="{% static img_path %}" alt="{{singer.singer_name}}"
+                    height=250 width=250>
+        </div>
+
+        {% comment %} <div>
+            <h2 style="padding: 50px">
+                歌曲列表
+            <h2>
+        </div> {% endcomment %}
+
+        <div style="padding: 60px">
+            <h2>歌曲列表</h2>
+            <ul>
+                {% for song_id in singer.songs_id %}
+                    <li>
+                        {% with song_id_str=song_id|stringformat:"s" %}
+                        {% with song_url=root_url|add:"song/id="|add:song_id_str %}
+                        <a href={{ song_url }}>{{ song_id }}</a>
+                        {% endwith %}
+                        {% endwith %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        {% comment %} <script src="" async defer></script> {% endcomment %}
+    </body>
+</html>

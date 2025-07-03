@@ -27,7 +27,7 @@ def add_songs(row: pd.Series) -> pd.Series:
     soup = bs(response.text, "lxml")
     id_pattern = re.compile(r'\d+$')
     songs_id = [
-        id_pattern.search(song['href']).group(0) for song in soup.find_all("a", href=re.compile(r"/song\?id=\d"))
+        int(id_pattern.search(song['href']).group(0)) for song in soup.find_all("a", href=re.compile(r"/song\?id=\d"))
     ]
     row['songs_id'] = songs_id
     return row

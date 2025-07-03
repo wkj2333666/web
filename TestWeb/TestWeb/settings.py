@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'HomePage',
+    'SingerInfo',
 ]
 
 MIDDLEWARE = [
@@ -117,7 +118,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+ROOT_URL = 'http://183.172.145.239:18888/'
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    '/home/wkj/tsinghua/2-0/python/web/data/',
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

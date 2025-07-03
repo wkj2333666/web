@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <!-- 导入音乐网站专用CSS -->
+    <link rel="stylesheet" href="music-styles.css">
+    <!-- 导入Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 导入Google字体 -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* 基础页面样式 */
+        body {
+            background: linear-gradient(135deg, var(--music-darker) 0%, var(--music-dark) 100%);
+            color: var(--music-light);
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            background-attachment: fixed;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 标题样式展示 -->
+        <section>
+            <h1 class="music-title music-h1">音乐天堂</h1>
+            <h2 class="music-title music-h2 center">热门歌曲排行榜</h2>
+            <h3 class="music-title music-h3">最新专辑</h3>
+        </section>
+        
+        <!-- 列表样式展示 -->
+        <section>
+            <h2 class="music-title music-h2">播放列表</h2>
+            <ul class="music-playlist">
+                <li class="now-playing">
+                    <div class="track-number">1</div>
+                    <div class="track-info">
+                        <div class="track-title">夏日微风</div>
+                        <div class="track-artist">王菲</div>
+                    </div>
+                    <div class="track-duration">4:22</div>
+                </li>
+                <li>
+                    <div class="track-number">2</div>
+                    <div class="track-info">
+                        <div class="track-title">星辰大海</div>
+                        <div class="track-artist">周杰伦</div>
+                    </div>
+                    <div class="track-duration">3:45</div>
+                </li>
+                <li>
+                    <div class="track-number">3</div>
+                    <div class="track-info">
+                        <div class="track-title">城市之光</div>
+                        <div class="track-artist">林俊杰</div>
+                    </div>
+                    <div class="track-duration">4:15</div>
+                </li>
+            </ul>
+            
+            <h3 class="music-title music-h3">专辑曲目</h3>
+            <div class="music-list ordered">
+                <ol>
+                    <li>Intro - 梦境开始</li>
+                    <li>夏日之恋</li>
+                    <li>星空下的约定</li>
+                    <li>时光旅行者</li>
+                </ol>
+            </div>
+        </section>
+        
+        <!-- 歌词样式展示 -->
+        <section>
+            <div class="music-lyrics-container">
+                <div class="music-lyrics-header">
+                    <h2 class="music-lyrics-title">夏日微风</h2>
+                    <div class="music-lyrics-artist">王菲</div>
+                </div>
+                <div class="music-lyrics-content">
+                    <div class="music-lyrics-line">阳光洒在窗台，微风轻抚脸庞</div>
+                    <div class="music-lyrics-line current">夏日微风，吹散所有忧愁</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 评论样式展示 -->
+        <section>
+            <h2 class="music-title music-h2 center">歌曲评论</h2>
+            
+            <div class="music-comment">
+                <div class="music-comment-header">
+                    <div class="music-comment-avatar">M</div>
+                    <div class="music-comment-user">
+                        <div class="music-comment-username">音乐爱好者</div>
+                        <div class="music-comment-date">2023年8月15日 · 12:30</div>
+                    </div>
+                </div>
+                <div class="music-comment-content">
+                    这首歌让我想起了大学时代的夏天，王菲的声音还是那么空灵动人。编曲中的海浪声和钢琴旋律完美融合，营造出清凉的海边氛围。
+                </div>
+                <div class="music-comment-actions">
+                    <div class="music-comment-action">
+                        <i class="fas fa-thumbs-up"></i>
+                        <span>128</span>
+                    </div>
+                    <div class="music-comment-action">
+                        <i class="fas fa-comment"></i>
+                        <span>回复</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="music-comment-form">
+                <h3 class="music-title music-h3">发表评论</h3>
+                <div class="music-form-group">
+                    <label for="comment-name">昵称</label>
+                    <input type="text" id="comment-name" class="music-form-control" placeholder="请输入您的昵称">
+                </div>
+                <div class="music-form-group">
+                    <label for="comment-content">评论内容</label>
+                    <textarea id="comment-content" class="music-form-control music-form-control.textarea" placeholder="分享您对这首歌的感受..."></textarea>
+                </div>
+                <button class="music-btn">提交评论</button>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
