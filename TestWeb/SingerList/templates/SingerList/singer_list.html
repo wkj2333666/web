@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>⭐Singer List⭐</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <h1 style="padding: 30px">⭐Singer List⭐</h1>
+        <div>
+            <ul>
+            {% for singer in singers %}
+                <p>
+                    {% with singer_id_str=singer.singer_id|stringformat:"s" %}
+                    <span>
+                        {% load static %}
+                        {% with img_path="singer_img/"|add:singer_id_str|add:".jpg" %}
+                        <img src={% static img_path %} 
+                            alt={{ singer.singer_name }}
+                            height=50 width=50>
+                        {% endwith %}
+                    </span>
+                    <span>
+                        {% with singer_url=root_url|add:"singer/id="|add:singer_id_str %}
+                        <a href={{ singer_url }}>{{ singer.singer_name }}</a>
+                        {% endwith %}
+                    </span>
+                    {% endwith %}
+                </p>
+            {% endfor %}
+            </ul>
+        </div>
+        
+
+    </body>
+</html>

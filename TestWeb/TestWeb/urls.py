@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', include('HomePage.urls')),
     path('singer/id=<int:id>', include('SingerInfo.urls')),
+    path('singers', include('SingerList.urls'))
 ]
