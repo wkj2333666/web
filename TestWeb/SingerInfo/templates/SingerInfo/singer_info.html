@@ -11,37 +11,55 @@
         <title>{{ singer.singer_name }}</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+            <!-- 导入音乐网站专用CSS -->
+        {% load static %}
+        <link rel="stylesheet" href={% static "style.css" %}>
+        <!-- 导入Font Awesome图标 -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <!-- 导入Google字体 -->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+        <style>
+            /* 基础页面样式 */
+            body {
+                background: linear-gradient(135deg, var(--music-darker) 0%, var(--music-dark) 100%);
+                color: var(--music-light);
+                font-family: 'Open Sans', sans-serif;
+                line-height: 1.6;
+                min-height: 100vh;
+                padding: 20px;
+                background-attachment: fixed;
+            }
+            
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+        </style>
     </head>
     <body>
-        <div align="middle">
-            <h1 color=blue>{{ singer.singer_name }}</h1>
-        </div>
-        <div>
-            <p style="padding: 50px">
-                &emsp;&emsp;{{ singer.singer_abstract }}
-            </p>
-        </div>
 
-        <div align="middle">
-            {% load static %}
-            <img src="{% static img_path %}" alt="{{singer.singer_name}}"
+        <div class="music-lyrics-container">
+            <h1 class="music-h1" align="center">🎵{{ singer.singer_name }}🎤</h1>
+
+            <section>
+                <section class="music-comment">
+                    &emsp;&emsp;{{ singer.singer_abstract }}
+                </section>
+                <span>
+                    {% load static %}
+                    <img src="{% static img_path %}" alt="{{singer.singer_name}}"
                     height=250 width=250>
-        </div>
+                </span>
+            </section>
 
-        {% comment %} <div>
-            <h2 style="padding: 50px">
-                歌曲列表
-            <h2>
-        </div> {% endcomment %}
-
-        <div style="padding: 60px">
-            <h2>歌曲列表</h2>
-            <ul>
+            <h2 class="music-title music-h2">歌曲列表</h2>
+            <ul class="music-list">
                 {% for song_id in singer.songs_id %}
                     <li>
                         {% with song_id_str=song_id|stringformat:"s" %}
                         {% with song_url=root_url|add:"song/id="|add:song_id_str %}
-                        <a href={{ song_url }}>{{ song_id }}</a>
+                        <a href={{ song_url }} >{{ song_id }}</a>
                         {% endwith %}
                         {% endwith %}
                     </li>
