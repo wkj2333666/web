@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>⭐Singer List⭐</title>
+        <title>歌曲列表</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- 导入音乐网站专用CSS -->
@@ -51,25 +51,25 @@
                 🔍搜索
             </span>
         </div>
-        
+
         <div>
-            <h1 class="music-h1" align="center">⭐Singer List⭐</h1>
+            <h1 class="music-h1" align="center">🎶歌曲列表🎵</h1>
 
             <ol class="music-list">
-            {% for singer in singers %}
+            {% for song in songs %}
                 <li>
-                    {% with singer_id_str=singer.singer_id|stringformat:"s" %}
+                    {% with song_id_str=song.song_id|stringformat:"s" %}
                     <span>
                         {% load static %}
-                        {% with img_path="singer_img/"|add:singer_id_str|add:".jpg" %}
+                        {% with img_path="song_img/"|add:song_id_str|add:".jpg" %}
                         <img src={% static img_path %} 
-                            alt={{ singer.singer_name }}
+                            alt={{ song.song_name }}
                             height=50 width=50>
                         {% endwith %}
                     </span>
                     <span>
-                        {% with singer_url=root_url|add:"singer/id="|add:singer_id_str %}
-                        <a href={{ singer_url }} class="music-comment-action">{{ singer.singer_name }}</a>
+                        {% with song_url=root_url|add:"song/id="|add:song_id_str %}
+                        <a href={{ song_url }} class="music-comment-action">{{ song.song_name }}</a>
                         {% endwith %}
                     </span>
                     {% endwith %}
@@ -78,5 +78,6 @@
             </ul>
         
         </div>
+        
     </body>
 </html>

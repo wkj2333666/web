@@ -20,5 +20,6 @@ from . import views
 
 
 urlpatterns = [
-    path('id=<int:song_id>', views.show_song_info)
+    path('id=<int:song_id>', views.show_song_info),
+    path('list', views.show_song_list),
 ]

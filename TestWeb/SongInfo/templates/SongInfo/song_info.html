@@ -37,6 +37,21 @@
         </style>
     </head>
     <body>
+        <div class="head-bar">
+            <a href={{root_url}} class="link-action">
+                🏠首页
+            </a>
+            <a href={{root_url|add:"singer/list"}} class="link-action">
+                🎤歌手列表
+            </a>
+            <a href={{root_url|add:"song/list"}} class="link-action">
+                🎶歌曲列表
+            </a>
+            <span class="link-action">
+                🔍搜索
+            </span>
+        </div>
+
         <div>
             <h1 class="music-h1" align="center">🎶{{ song.song_name }}🎼</h1>
             <h2 class="music-h2" align="center">
@@ -53,7 +68,7 @@
                 {% endfor %}
             </h2>
             <div>
-                <span>
+                <div align="center">
                 {% load static %}
                 {% with song_id_str=song.song_id|stringformat:"s" %}
                 {% with img_path="song_img/"|add:song_id_str|add:".jpg" %}
@@ -62,11 +77,10 @@
                 height=400 width=400>
                 {% endwith %}
                 {% endwith %}
-                </span>
+                </div>
                 <section class="music-lyrics-container">
-                    <pre class="music-lyrics-line">
-                    {{song.lyric}}
-                    </pre>
+                    <p class="music-lyrics-title">{{song.song_name}}</p>
+                    <pre class="music-lyrics-line">{{song.lyric}}</pre>
                 </section>
 
                 <section class="music-comment">

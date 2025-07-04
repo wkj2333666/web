@@ -13,3 +13,12 @@ def show_song_info(request, song_id):
         'root_url': settings.ROOT_URL,
     }
     return HttpResponse(template.render(request=request, context=context))
+
+def show_song_list(request):
+    songs = song_info.objects.all()
+    template = loader.get_template('SongInfo/song_list.html')
+    context = {
+        'songs': songs,
+        'root_url': settings.ROOT_URL,
+    }
+    return HttpResponse(template.render(request=request, context=context))

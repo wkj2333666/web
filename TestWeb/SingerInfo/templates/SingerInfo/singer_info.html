@@ -38,6 +38,20 @@
         </style>
     </head>
     <body>
+        <div class="head-bar">
+            <a href={{root_url}} class="link-action">
+                🏠首页
+            </a>
+            <a href={{root_url|add:"singer/list"}} class="link-action">
+                🎤歌手列表
+            </a>
+            <a href={{root_url|add:"song/list"}} class="link-action">
+                🎶歌曲列表
+            </a>
+            <span class="link-action">
+                🔍搜索
+            </span>
+        </div>
 
         <div class="music-lyrics-container">
             <h1 class="music-h1" align="center">🎵{{ singer.singer_name }}🎤</h1>
@@ -46,15 +60,15 @@
                 <section class="music-comment">
                     &emsp;&emsp;{{ singer.singer_abstract }}
                 </section>
-                <span>
+                <div align="center">
                     {% load static %}
                     <img src="{% static img_path %}" alt="{{singer.singer_name}}"
                     height=250 width=250>
-                </span>
+                </div>
             </section>
 
             <h2 class="music-h2" style="color: #3498db">
-                歌曲列表
+                作品
             </h2>
             <ul class="music-list">
                 {% for song in singer.songs %}
