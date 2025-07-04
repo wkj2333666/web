@@ -53,13 +53,21 @@
                 </span>
             </section>
 
-            <h2 class="music-title music-h2">歌曲列表</h2>
+            <h2 class="music-h2" style="color: #3498db">
+                歌曲列表
+            </h2>
             <ul class="music-list">
-                {% for song_id in singer.songs_id %}
+                {% for song in singer.songs %}
                     <li>
-                        {% with song_id_str=song_id|stringformat:"s" %}
+                        {% with song_id_str=song.song_id|stringformat:"s" %}
                         {% with song_url=root_url|add:"song/id="|add:song_id_str %}
-                        <a href={{ song_url }} >{{ song_id }}</a>
+                        {% with img_path="song_img/"|add:song_id_str|add:".jpg" %}
+                        {% load static %}
+                        <img src={% static img_path %} 
+                        alt={{song.song_name}}
+                        height=50 width=50>
+                        <a href={{ song_url }} class="music-comment-action">{{ song.song_name }}</a>
+                        {% endwith %}
                         {% endwith %}
                         {% endwith %}
                     </li>

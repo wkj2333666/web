@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{{song.song_name}}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- 导入音乐网站专用CSS -->
+        {% load static %}
+        <link rel="stylesheet" href={% static "style.css" %}>
+        <!-- 导入Font Awesome图标 -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <!-- 导入Google字体 -->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+        <style>
+            /* 基础页面样式 */
+            body {
+                background: linear-gradient(135deg, var(--music-darker) 0%, var(--music-dark) 100%);
+                color: var(--music-light);
+                font-family: 'Open Sans', sans-serif;
+                line-height: 1.6;
+                min-height: 100vh;
+                padding: 20px;
+                background-attachment: fixed;
+            }
+            
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1 class="music-h1" align="center">🎶{{ song.song_name }}🎼</h1>
+            <h2 class="music-h2" align="center">
+                <span>🎤</span>
+                {% for singer in song.singers %}
+                {% with singer_id_str=singer.singer_id|stringformat:"s" %}
+                    <span>
+                        <a class="music-comment-action" href={{root_url|add:"singer/id="|add:singer_id_str}}>
+                            {{singer.singer_name}}
+                        </a>
+                    </span>
+                    <span>🎤</span>
+                {% endwith %}
+                {% endfor %}
+            </h2>
+            <div>
+                <span>
+                {% load static %}
+                {% with song_id_str=song.song_id|stringformat:"s" %}
+                {% with img_path="song_img/"|add:song_id_str|add:".jpg" %}
+                <img src={% static img_path %}
+                alt={{song.song_name}}
+                height=400 width=400>
+                {% endwith %}
+                {% endwith %}
+                </span>
+                <section class="music-lyrics-container">
+                    <pre class="music-lyrics-line">
+                    {{song.lyric}}
+                    </pre>
+                </section>
+
+                <section class="music-comment">
+                    <p class="music-comment-avatar" style="font-size: 25px">
+                        评论
+                    </p>
+                    {% for comment in song.comments %}
+                        <section class="music-comment-container">
+                            <p class="music-comment-username">
+                                {{comment.name}}
+                            </p>
+                            <p class="music-comment-content">
+                                {{comment.content}}
+                            </p>
+                            <p class="music-comment-date" align="right">
+                                {{comment.time}}
+                            </p>
+                        </section>
+                    {% endfor %}
+                </section>
+
+            </div>
+        </div>
+        
+    </body>
+</html>

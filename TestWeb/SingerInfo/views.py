@@ -17,3 +17,11 @@ def show_singer_info(request, id):
     }
     return HttpResponse(template.render(context, request))
 # %%
+def show_singer_list(request):
+    singers = singer_info.objects.all()
+    template = loader.get_template('SingerInfo/singer_list.html')
+    context = {
+        'singers': singers,
+        'root_url': settings.ROOT_URL
+    }
+    return HttpResponse(template.render(request=request, context=context))
