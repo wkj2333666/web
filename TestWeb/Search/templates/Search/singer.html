@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>⭐Singer List⭐</title>
+        <title>🔎搜索</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- 导入音乐网站专用CSS -->
@@ -36,26 +36,45 @@
             }
         </style>
     </head>
+
     <body>
         <div class="head-bar">
-            <a href={{root_url}} class="link-action">
+            <a href="/" class="link-action">
                 🏠首页
             </a>
-            <a href={{root_url|add:"singer/list"}} class="link-action">
+            <a href="/singer/list" class="link-action">
                 🎤歌手列表
             </a>
-            <a href={{root_url|add:"song/list"}} class="link-action">
+            <a href="/song/list" class="link-action">
                 🎶歌曲列表
             </a>
-            <span class="link-action">
+            <a href="/search" class="link-action">
                 🔍搜索
-            </span>
+            </a>
         </div>
-        
+        {% comment %} 标题 {% endcomment %}
+        <h1 class="music-h1" align="center">搜索<h1>
+
+        <div align="center">
+            <form method="post" action="/search/">
+                {% csrf_token %}
+                <label for="flag">搜索对象：</label>
+                <select id="flag" name="flag">
+                    <option value="0">歌曲</option>
+                    <option value="1">歌手</option>
+                </select>
+
+                <label for="key_word">关键词：</label>
+                <input type="text" name="key_word" id="key_word">
+
+                <input type="hidden" name="result" value={{result}}>
+
+                <input type="submit" value="🔍">
+            </form>
+        </div>
+
+        {% comment %} 遍历搜索结果 {% endcomment %}
         <div>
-            <h1 class="music-h1" align="center">⭐歌手列表⭐</h1>
-            
-            {% comment %} 歌手列表 {% endcomment %}
             <ol class="music-list" start={{ol_start_num}}>
             {% for singer in singers %}
                 <li>
@@ -81,27 +100,31 @@
             {% comment %} 翻页区 {% endcomment %}
             <div class="pagination-container">
                 <!-- 第一页按钮 -->
-                <form class="pagination-form" action="page=1">
+                <form class="pagination-form" action="/search/singer/page=1" method="post">
                     {% csrf_token %}
                     <input class="pagination-btn" type="submit" value="第一页">
+                    <input type="hidden" name="result" value="{{result}}">
                 </form>
                 
                 <!-- 上一页按钮 -->
-                <form class="pagination-form" action="page={{previous_page}}">
+                <form class="pagination-form" action="/search/singer/page={{previous_page}}" method="post">
                     {% csrf_token %}
                     <input class="pagination-btn" type="submit" value="上一页">
+                    <input type="hidden" name="result" value="{{result}}">
                 </form>
                 
                 <!-- 下一页按钮 -->
-                <form class="pagination-form" action="page={{next_page}}">
+                <form class="pagination-form" action="/search/singer/page={{next_page}}" method="post">
                     {% csrf_token %}
                     <input class="pagination-btn" type="submit" value="下一页">
+                    <input type="hidden" name="result" value="{{result}}">
                 </form>
                 
                 <!-- 尾页按钮 -->
-                <form class="pagination-form" action="page={{max_page_num}}">
+                <form class="pagination-form" action="/search/singer/page={{max_page_num}}" method="post">
                     {% csrf_token %}
                     <input class="pagination-btn" type="submit" value="尾页">
+                    <input type="hidden" name="result" value="{{result}}">
                 </form>
                 
                 <!-- 当前页码 -->
@@ -110,13 +133,14 @@
                 </span>
                 
                 <!-- 页码跳转 -->
-                <form class="pagination-form" action="goto">
+                <form class="pagination-form" action="/search/singer/goto" method="post">
                     <input type="number" min="1" max="{{max_page_num}}" value="1" class="page-input" id="pageInput" name="goto_page">
+                    <input type="hidden" name="result" value="{{result}}">
                     <input type="submit" class="pagination-btn" value="GO">
                 </form>
             </div>
 
-        
         </div>
+
     </body>
 </html>

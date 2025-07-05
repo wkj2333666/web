@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "HomePage",
     "SingerInfo",
     "SongInfo",
+    "Search",
 ]
 
 MIDDLEWARE = [

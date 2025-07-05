@@ -63,6 +63,15 @@
                 🎤
             </h1>
 
+            {% comment %} URL {% endcomment %}
+            <h2 align="center">
+                {% with singer_id_str=singer.singer_id|stringformat:"s" %}
+                <a class="link-action" href={{org_url|add:"artist?id="|add:singer_id_str}}>
+                    {{org_url|add:"artist?id="|add:singer_id_str}}
+                </a>
+                {% endwith %}
+            </h2>
+
             {% comment %} 歌手简介 {% endcomment %}
             <section>
                 <section class="music-comment">

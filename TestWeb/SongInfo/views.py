@@ -53,6 +53,7 @@ def show_song_list_redirect(request):
 
 def show_song_list(request, page_num):
     songs = song_info.objects.all()
+    
     page_size = settings.PAGE_SIZE
     max_page_num = len(songs) // page_size
     if (len(songs) % page_size != 0):

@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>🏠首页</title>
+        <title>🔎搜索</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- 导入音乐网站专用CSS -->
@@ -48,36 +48,27 @@
             <a href="/song/list" class="link-action">
                 🎶歌曲列表
             </a>
-            <a href="/search/home" class="link-action">
+            <a href="/search" class="link-action">
                 🔍搜索
             </a>
         </div>
         {% comment %} 标题 {% endcomment %}
-        <h1 class="music-h1" align="center">云易网音乐<h1>
+        <h1 class="music-h1" align="center">搜索<h1>
 
         <div align="center">
-            <ul style="list-style: none">
-                <li>
-                    <a href="/" class="link-action">
-                        🏠&emsp;首页&emsp;🏠
-                    </a>&emsp;
-                </li>
-                <li>
-                    <a href="/singer/list" class="link-action">
-                        🎤歌手列表🎤
-                    </a>&emsp;
-                </li>
-                <li>
-                    <a href="/song/list" class="link-action">
-                        🎶歌曲列表🎶
-                    </a>&emsp;
-                </li>
-                <li>
-                    <a href="/search/home" class="link-action">
-                        🔍&emsp;搜索&emsp;🔍
-                    </a>&emsp;
-                </li>
-            </ul>
+            <form method="post" action="/search/">
+                {% csrf_token %}
+                <label for="flag">搜索对象：</label>
+                <select id="flag" name="flag">
+                    <option value="0">歌曲</option>
+                    <option value="1">歌手</option>
+                </select>
+
+                <label for="key_word">关键词：</label>
+                <input type="text" name="key_word" id="key_word">
+
+                <input type="submit" value="🔍">
+            </form>
         </div>
 
     </body>

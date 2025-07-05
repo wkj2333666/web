@@ -75,6 +75,14 @@
                 {% endwith %}
                 {% endfor %}
             </h2>
+            {% comment %} URL {% endcomment %}
+            <h2 align="center">
+                {% with song_id_str=song.song_id|stringformat:"s" %}
+                <a href={{org_url|add:"song?id="|add:song_id_str}} class="link-action">
+                    {{org_url|add:"song?id="|add:song_id_str}}
+                </a>
+                {% endwith %}
+            </h2>
             <div>
                 {% comment %} 歌曲图片 {% endcomment %}
                 <div align="center">
