@@ -87,6 +87,6 @@ def show_singer_list(request, page_num=1):
     return HttpResponse(template.render(request=request, context=context))
 
 
-def goto_page(request):
+def goto_page(request, id):
     goto_page = request.GET.get("goto_page")
     return HttpResponseRedirect(f"page={goto_page}")

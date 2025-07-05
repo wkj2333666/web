@@ -106,15 +106,7 @@
                     <p class="music-comment-avatar" style="font-size: 25px">
                         评论
                     </p>
-                    {% comment %} 发表评论 {% endcomment %}
-                    <div align="center">
-                        <form action="../comment/id={{song.song_id}}" method="post" class="music-comment-form">
-                            {% csrf_token %}
-                            user:<input type="text" name="user">
-                            comment:<input type="text" name="content">
-                            <input class="music-btn" type="submit" value="comment">
-                        </form>
-                    </div>
+
                     {% comment %} 遍历评论 {% endcomment %}
                     {% for comment in song.comments%}
                     <section class="music-comment-container">
@@ -137,6 +129,24 @@
                         </div>
                     </section>
                     {% endfor %}
+
+                    {% comment %} 发表评论 {% endcomment %}
+                    <div align="center">
+                        <form action="../comment/id={{song.song_id}}" method="post" class="music-comment-form">
+                            {% csrf_token %}
+                            <label for="user" style="color: #3498db; font-size: 20px; font-weight: bold; margin-left: 40px">
+                                用户名：
+                            </label>
+                            <input id="user" type="text" name="user">
+                            
+                            <label for="comment" style="color: #3498db; font-size: 20px; font-weight: bold; margin-left: 40px">
+                                评论：
+                            </label>
+                            <input id="comment" type="text" name="content">
+
+                            <input class="music-btn" type="submit" value="comment">
+                        </form>
+                    </div>
 
                     {% comment %} 翻页 {% endcomment %}
                     <div class="pagination-container">

@@ -118,6 +118,8 @@ def del_comment(request):
     return HttpResponseRedirect(redirect_to=f"/song/id={song_id}/page={page}")
 
 
-def goto_page(request):
+def goto_page(request, song_id=0):
+    # in fact the kwarg song_id is never used!
+    # the reason to keep it is to match the interface of urls.py
     goto_page = request.GET.get("goto_page")
     return HttpResponseRedirect(f"page={goto_page}")
