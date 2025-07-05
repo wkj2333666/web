@@ -23,5 +23,6 @@ from . import views
 urlpatterns = [
     path("home", views.show_search_page),
     path("", views.search),
-    path("singer/page=<int:page_num>", views.singer_result),
+    # path("page=<int:page_num>", views.search),
+    # path("goto=<int:page_num>", views.search),
 ]

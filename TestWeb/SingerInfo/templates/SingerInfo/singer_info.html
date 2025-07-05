@@ -39,18 +39,18 @@
     </head>
     <body>
         <div class="head-bar">
-            <a href={{root_url}} class="link-action">
+            <a href="/" class="link-action">
                 🏠首页
             </a>
-            <a href={{root_url|add:"singer/list"}} class="link-action">
+            <a href="/singer/list" class="link-action">
                 🎤歌手列表
             </a>
-            <a href={{root_url|add:"song/list"}} class="link-action">
+            <a href="/song/list" class="link-action">
                 🎶歌曲列表
             </a>
-            <span class="link-action">
+            <a href="/search/home" class="link-action">
                 🔍搜索
-            </span>
+            </a>
         </div>
 
         <div class="music-lyrics-container">
@@ -139,6 +139,7 @@
                 
                 <!-- 页码跳转 -->
                 <form class="pagination-form" action="goto">
+                    {% csrf_token %}
                     <input type="number" min="1" max="{{max_page_num}}" value="1" class="page-input" id="pageInput" name="goto_page">
                     <input type="submit" class="pagination-btn" value="GO">
                 </form>

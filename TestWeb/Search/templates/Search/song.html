@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>🔎搜索</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- 导入音乐网站专用CSS -->
+        {% load static %}
+        <link rel="stylesheet" href={% static "style.css" %}>
+        <!-- 导入Font Awesome图标 -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <!-- 导入Google字体 -->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+        <style>
+            /* 基础页面样式 */
+            body {
+                background: linear-gradient(135deg, var(--music-darker) 0%, var(--music-dark) 100%);
+                color: var(--music-light);
+                font-family: 'Open Sans', sans-serif;
+                line-height: 1.6;
+                min-height: 100vh;
+                padding: 20px;
+                background-attachment: fixed;
+            }
+            
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="head-bar">
+            <a href="/" class="link-action">
+                🏠首页
+            </a>
+            <a href="/singer/list" class="link-action">
+                🎤歌手列表
+            </a>
+            <a href="/song/list" class="link-action">
+                🎶歌曲列表
+            </a>
+            <a href="/search" class="link-action">
+                🔍搜索
+            </a>
+        </div>
+        {% comment %} 标题 {% endcomment %}
+        <h1 class="music-h1" align="center">搜索<h1>
+
+        <div align="center">
+            <form method="post" action="/search/">
+                {% csrf_token %}
+                <label for="flag">搜索对象：</label>
+                <select id="flag" name="flag">
+                    <option value="0">歌曲</option>
+                    <option value="1">歌手</option>
+                </select>
+
+                <label for="key_word">关键词：</label>
+                <input type="text" name="key_word" id="key_word">
+
+                <input type="hidden" name="result" value={{result}}>
+
+                <input type="submit" value="🔍">
+            </form>
+        </div>
+
+        {% comment %} 遍历搜索结果 {% endcomment %}
+        <div>
+            <ol class="music-list" start={{ol_start_num}}>
+            {% for song in songs %}
+                <li>
+                    {% with song_id_str=song.song_id|stringformat:"s" %}
+                    <span>
+                        {% load static %}
+                        {% with img_path="song_img/"|add:song_id_str|add:".jpg" %}
+                        <img src={% static img_path %} 
+                            alt={{ song.song_name }}
+                            height=50 width=50>
+                        {% endwith %}
+                    </span>
+                    <span>
+                        {% with song_url=root_url|add:"song/id="|add:song_id_str %}
+                        <a href={{ song_url }} class="music-comment-action">{{ song.song_name }}</a>
+                        {% endwith %}
+                    </span>
+                    {% endwith %}
+                </li>
+            {% endfor %}
+            </ol>
+
+            {% comment %} 翻页区 {% endcomment %}
+            <div class="pagination-container">
+                <!-- 第一页按钮 -->
+                <form class="pagination-form" method="post">
+                    {% csrf_token %}
+                    <input class="pagination-btn" type="submit" value="第一页">
+                    <input type="hidden" name="flag" value="{{flag}}">
+                    <input type="hidden" name="key_word" value="{{key_word}}">
+                    <input type="hidden" name="page_num" value="1">
+                </form>
+                
+                <!-- 上一页按钮 -->
+                <form class="pagination-form" method="post">
+                    {% csrf_token %}
+                    <input class="pagination-btn" type="submit" value="上一页">
+                    <input type="hidden" name="flag" value="{{flag}}">
+                    <input type="hidden" name="key_word" value="{{key_word}}">
+                    <input type="hidden" name="page_num" value="{{previous_page}}">
+                </form>
+                
+                <!-- 下一页按钮 -->
+                <form class="pagination-form" method="post">
+                    {% csrf_token %}
+                    <input class="pagination-btn" type="submit" value="下一页">
+                    <input type="hidden" name="flag" value="{{flag}}">
+                    <input type="hidden" name="key_word" value="{{key_word}}">
+                    <input type="hidden" name="page_num" value="{{next_page}}">
+                </form>
+                
+                <!-- 尾页按钮 -->
+                <form class="pagination-form" method="post">
+                    {% csrf_token %}
+                    <input class="pagination-btn" type="submit" value="尾页">
+                    <input type="hidden" name="flag" value="{{flag}}">
+                    <input type="hidden" name="key_word" value="{{key_word}}">
+                    <input type="hidden" name="page_num" value="{{max_page_num}}">
+                </form>
+                
+                <!-- 当前页码 -->
+                <span class="current-page">
+                    <i class="fas fa-file-alt"></i> 当前页码：<span id="currentPage">{{current_page}}</span>
+                </span>
+                
+                <!-- 页码跳转 -->
+                <form class="pagination-form" method="post">
+                    {% csrf_token %}
+                    <input type="number" min="1" max="{{max_page_num}}" value="1" class="page-input" id="pageInput" name="page_num">
+                    <input type="hidden" name="flag" value="{{flag}}">
+                    <input type="hidden" name="key_word" value="{{key_word}}">
+                    <input type="submit" class="pagination-btn" value="GO">
+                </form>
+            </div>
+
+        </div>
+
+    </body>
+</html>

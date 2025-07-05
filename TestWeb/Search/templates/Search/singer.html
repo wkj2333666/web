@@ -100,31 +100,39 @@
             {% comment %} 翻页区 {% endcomment %}
             <div class="pagination-container">
                 <!-- 第一页按钮 -->
-                <form class="pagination-form" action="/search/singer/page=1" method="post">
+                <form class="pagination-form" method="post">
                     {% csrf_token %}
                     <input class="pagination-btn" type="submit" value="第一页">
-                    <input type="hidden" name="result" value="{{result}}">
+                    <input type="hidden" name="flag" value="{{flag}}">
+                    <input type="hidden" name="key_word" value="{{key_word}}">
+                    <input type="hidden" name="page_num" value="1">
                 </form>
                 
                 <!-- 上一页按钮 -->
-                <form class="pagination-form" action="/search/singer/page={{previous_page}}" method="post">
+                <form class="pagination-form" method="post">
                     {% csrf_token %}
                     <input class="pagination-btn" type="submit" value="上一页">
-                    <input type="hidden" name="result" value="{{result}}">
+                    <input type="hidden" name="flag" value="{{flag}}">
+                    <input type="hidden" name="key_word" value="{{key_word}}">
+                    <input type="hidden" name="page_num" value="{{previous_page}}">
                 </form>
                 
                 <!-- 下一页按钮 -->
-                <form class="pagination-form" action="/search/singer/page={{next_page}}" method="post">
+                <form class="pagination-form" method="post">
                     {% csrf_token %}
                     <input class="pagination-btn" type="submit" value="下一页">
-                    <input type="hidden" name="result" value="{{result}}">
+                    <input type="hidden" name="flag" value="{{flag}}">
+                    <input type="hidden" name="key_word" value="{{key_word}}">
+                    <input type="hidden" name="page_num" value="{{next_page}}">
                 </form>
                 
                 <!-- 尾页按钮 -->
-                <form class="pagination-form" action="/search/singer/page={{max_page_num}}" method="post">
+                <form class="pagination-form" method="post">
                     {% csrf_token %}
                     <input class="pagination-btn" type="submit" value="尾页">
-                    <input type="hidden" name="result" value="{{result}}">
+                    <input type="hidden" name="flag" value="{{flag}}">
+                    <input type="hidden" name="key_word" value="{{key_word}}">
+                    <input type="hidden" name="page_num" value="{{max_page_num}}">
                 </form>
                 
                 <!-- 当前页码 -->
@@ -133,9 +141,11 @@
                 </span>
                 
                 <!-- 页码跳转 -->
-                <form class="pagination-form" action="/search/singer/goto" method="post">
-                    <input type="number" min="1" max="{{max_page_num}}" value="1" class="page-input" id="pageInput" name="goto_page">
-                    <input type="hidden" name="result" value="{{result}}">
+                <form class="pagination-form" method="post">
+                    {% csrf_token %}
+                    <input type="number" min="1" max="{{max_page_num}}" value="1" class="page-input" id="pageInput" name="page_num">
+                    <input type="hidden" name="flag" value="{{flag}}">
+                    <input type="hidden" name="key_word" value="{{key_word}}">
                     <input type="submit" class="pagination-btn" value="GO">
                 </form>
             </div>
