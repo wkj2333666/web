@@ -20,5 +20,7 @@ from . import views
 
 urlpatterns = [
     path("id=<int:id>", views.show_singer_info),
-    path("list", views.show_singer_list),
+    path("list", views.show_singer_list_redirect),
+    path("list/page=<int:page_num>", views.show_singer_list),
+    path("list/goto", views.goto_page),
 ]

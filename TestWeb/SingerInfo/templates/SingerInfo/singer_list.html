@@ -53,9 +53,9 @@
         </div>
         
         <div>
-            <h1 class="music-h1" align="center">⭐Singer List⭐</h1>
+            <h1 class="music-h1" align="center">⭐歌手列表⭐</h1>
 
-            <ol class="music-list">
+            <ol class="music-list" start={{ol_start_num}}>
             {% for singer in singers %}
                 <li>
                     {% with singer_id_str=singer.singer_id|stringformat:"s" %}
@@ -76,6 +76,44 @@
                 </li>
             {% endfor %}
             </ul>
+
+            <div class="pagination-container">
+                <!-- 第一页按钮 -->
+                <form class="pagination-form" action="page=1">
+                    {% csrf_token %}
+                    <input class="pagination-btn" type="submit" value="第一页">
+                </form>
+                
+                <!-- 上一页按钮 -->
+                <form class="pagination-form" action="page={{previous_page}}">
+                    {% csrf_token %}
+                    <input class="pagination-btn" type="submit" value="上一页">
+                </form>
+                
+                <!-- 下一页按钮 -->
+                <form class="pagination-form" action="page={{next_page}}">
+                    {% csrf_token %}
+                    <input class="pagination-btn" type="submit" value="下一页">
+                </form>
+                
+                <!-- 尾页按钮 -->
+                <form class="pagination-form" action="page={{max_page_num}}">
+                    {% csrf_token %}
+                    <input class="pagination-btn" type="submit" value="尾页">
+                </form>
+                
+                <!-- 当前页码 -->
+                <span class="current-page">
+                    <i class="fas fa-file-alt"></i> 当前页码：<span id="currentPage">{{current_page}}</span>
+                </span>
+                
+                <!-- 页码跳转 -->
+                <form class="pagination-form" action="goto">
+                    <input type="number" min="1" max="{{max_page_num}}" value="1" class="page-input" id="pageInput" name="goto_page">
+                    <input type="submit" class="pagination-btn" value="GO">
+                </form>
+            </div>
+
         
         </div>
     </body>

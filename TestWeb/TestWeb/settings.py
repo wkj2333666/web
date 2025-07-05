@@ -119,6 +119,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+PAGE_SIZE = 10
 ROOT_URL = "http://183.172.145.239:18888/"
 ORG_URL = "https://music.163.com/"
 STATIC_URL = "static/"
