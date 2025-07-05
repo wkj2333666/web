@@ -80,16 +80,15 @@ chunk_size = 100
 total_rows = len(df_songs)
 restart_from_pause = 7101
 
-for start in tqdm(range(restart_from_pause, total_rows, chunk_size), desc='Chunks'):
+for start in tqdm(range(restart_from_pause, total_rows, chunk_size), desc="Chunks"):
     end = min(start + chunk_size, total_rows)
-    
-    df_songs.iloc[start: end].progress_apply(get_song_info, axis=1).to_json(
-        restore_file, 
-        mode='a', 
-        lines=True, 
-        orient='records', 
+
+    df_songs.iloc[start:end].progress_apply(get_song_info, axis=1).to_json(
+        restore_file,
+        mode="a",
+        lines=True,
+        orient="records",
         force_ascii=False,
     )
-    
+
     # df_songs.iloc[start: end] = current_chunk
-    

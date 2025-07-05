@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('SongInfo', '0002_alter_song_info_lyric'),
+        ("SongInfo", "0002_alter_song_info_lyric"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='song_info',
-            name='comments',
+            model_name="song_info",
+            name="comments",
             field=models.JSONField(default=list),
         ),
     ]

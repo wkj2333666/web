@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('SongInfo', '0001_initial'),
+        ("SongInfo", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='song_info',
-            name='lyric',
+            model_name="song_info",
+            name="lyric",
             field=models.CharField(max_length=1000),
         ),
     ]

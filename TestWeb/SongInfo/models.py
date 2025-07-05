@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class song_info(models.Model):
     song_id = models.IntegerField()

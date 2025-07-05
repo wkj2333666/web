@@ -4,21 +4,27 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='SingerInfo',
+            name="SingerInfo",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('singer_name', models.CharField(max_length=30)),
-                ('singer_id', models.IntegerField()),
-                ('singer_abstract', models.CharField(max_length=300)),
-                ('songs_id', models.JSONField(default=list)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("singer_name", models.CharField(max_length=30)),
+                ("singer_id", models.IntegerField()),
+                ("singer_abstract", models.CharField(max_length=300)),
+                ("songs_id", models.JSONField(default=list)),
             ],
         ),
     ]
