@@ -87,6 +87,8 @@ def show_singer_list(request, page_num=1):
     return HttpResponse(template.render(request=request, context=context))
 
 
-def goto_page(request, id):
+def goto_page(request, id=0):
+    # the kwarg id is never used.
+    # the reason to keep it is to match the interface in urls.py
     goto_page = request.GET.get("goto_page")
     return HttpResponseRedirect(f"page={goto_page}")

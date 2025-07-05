@@ -5,9 +5,10 @@ from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.db.models import Q
 from SingerInfo.models import singer_info
 from Search.models import search_song
+import time
 # Create your views here.
 
-def singer_result(request, key_word, result=None, page_num=1):
+def singer_result(request, key_word, result=None, page_num=1, search_time=0, result_count=0):
     # singers = singer_info.objects.all()
     # if result is None:
     #     # the request is sent from web, instead of search() function!
@@ -41,12 +42,13 @@ def singer_result(request, key_word, result=None, page_num=1):
         "result": result,
         "flag": 1,
         "key_word": key_word,
-        
+        "search_time": search_time,
+        "result_count": result_count,
     }
     return HttpResponse(template.render(request=request, context=context))
 
 
-def song_result(request, key_word, result=None, page_num=1):
+def song_result(request, key_word, result=None, page_num=1, search_time=0, result_count=0):
     # if result is None:
         # the request is from web!
         # result = request.POST.get('result')
@@ -76,6 +78,8 @@ def song_result(request, key_word, result=None, page_num=1):
         "ol_start_num": ol_start_num,
         "flag": 0,
         "key_word": key_word,
+        "search_time": search_time,
+        "result_count": result_count,
     }
     return HttpResponse(template.render(request=request, context=context))
 
@@ -91,6 +95,7 @@ def search(request):
     # template = loader.get_template("Search/result.html")
 
     result = None
+    time_start = time.time()
     if flag == 0:
         result = search_song.objects.filter(
             Q(song_name__contains=key_word) |
@@ -104,8 +109,11 @@ def search(request):
             Q(singer_abstract__contains=key_word)
         )
     
-    return singer_result(request, result=result, key_word=key_word, page_num=page_num) \
-        if flag else song_result(request, result=result, key_word=key_word, page_num=page_num)
+    time_end = time.time()
+    search_time = (time_end - time_start) * 1000 # ms
+    result_count = len(result)
+    return singer_result(request, key_word, result, page_num, search_time, result_count) \
+        if flag else song_result(request, key_word, result, page_num, search_time, result_count)
 
 
 def show_search_page(request):
