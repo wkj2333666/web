@@ -54,7 +54,13 @@
         </div>
 
         <div class="music-lyrics-container">
-            <h1 class="music-h1" align="center">🎵{{ singer.singer_name }}🎤</h1>
+            <h1 class="music-h1" align="center">
+                🎵
+                <a class="link-action" href="{{org_url}}artist?id={{singer.singer_id}}">
+                    {{ singer.singer_name }}
+                </a>
+                🎤
+            </h1>
 
             <section>
                 <section class="music-comment">

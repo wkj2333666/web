@@ -22,4 +22,6 @@ from . import views
 urlpatterns = [
     path('id=<int:song_id>', views.show_song_info),
     path('list', views.show_song_list),
+    path('comment/id=<int:song_id>', views.post_comment),
+    path('del-comment', views.del_comment),
 ]

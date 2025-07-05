@@ -120,6 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 ROOT_URL = 'http://183.172.145.239:18888/'
+ORG_URL = 'https://music.163.com/'
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     '/home/wkj/tsinghua/2-0/python/web/data/',

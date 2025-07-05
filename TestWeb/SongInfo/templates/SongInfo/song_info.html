@@ -53,7 +53,13 @@
         </div>
 
         <div>
-            <h1 class="music-h1" align="center">🎶{{ song.song_name }}🎼</h1>
+            <h1 class="music-h1" align="center">
+                🎶
+                <a class="link-action" href="{{org_url}}song?id={{song.song_id}}">
+                    {{ song.song_name }}
+                </a>
+                🎼
+            </h1>
             <h2 class="music-h2" align="center">
                 <span>🎤</span>
                 {% for singer in song.singers %}
@@ -87,7 +93,13 @@
                     <p class="music-comment-avatar" style="font-size: 25px">
                         评论
                     </p>
-                    {% for comment in song.comments %}
+                    <form action="comment/id={{song.song_id}}" method="post">
+                        {% csrf_token %}
+                        user:<input type="text" name="user">
+                        comment:<input type="text" name="content">
+                        <input class="music-btn" type="submit" value="comment">
+                    </form>
+                    {% for comment in song.comments reversed %}
                         <section class="music-comment-container">
                             <p class="music-comment-username">
                                 {{comment.name}}
@@ -98,6 +110,12 @@
                             <p class="music-comment-date" align="right">
                                 {{comment.time}}
                             </p>
+                            <div align="right">
+                                <form action="del-comment?song_id={{song.song_id}}&index={{forloop.revcounter0}}" method="post">
+                                    {% csrf_token %}
+                                    <input class="del-btn" type="submit" value="删除">
+                                </form>
+                            </div>
                         </section>
                     {% endfor %}
                 </section>

@@ -13,7 +13,8 @@ def show_singer_info(request, id):
     context = {
         'singer': singer,
         'img_path': f'singer_img/{singer.singer_id}.jpg',
-        'root_url': settings.ROOT_URL
+        'root_url': settings.ROOT_URL,
+        'org_url': settings.ORG_URL,
     }
     return HttpResponse(template.render(context, request))
 # %%
