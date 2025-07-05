@@ -54,6 +54,7 @@
         </div>
 
         <div class="music-lyrics-container">
+            {% comment %} 歌手姓名 {% endcomment %}
             <h1 class="music-h1" align="center">
                 🎵
                 <a class="link-action" href="{{org_url}}artist?id={{singer.singer_id}}">
@@ -62,6 +63,7 @@
                 🎤
             </h1>
 
+            {% comment %} 歌手简介 {% endcomment %}
             <section>
                 <section class="music-comment">
                     &emsp;&emsp;{{ singer.singer_abstract }}
@@ -76,7 +78,8 @@
             <h2 class="music-h2" style="color: #3498db">
                 作品
             </h2>
-            <ul class="music-list">
+            {% comment %} 歌曲列表 {% endcomment %}
+            <ol class="music-list" start={{ol_start_num}}>
                 {% for song in singer.songs %}
                     <li>
                         {% with song_id_str=song.song_id|stringformat:"s" %}
@@ -92,7 +95,46 @@
                         {% endwith %}
                     </li>
                 {% endfor %}
-            </ul>
+            </ol>
+
+            {% comment %} 翻页区 {% endcomment %}
+            <div class="pagination-container">
+                <!-- 第一页按钮 -->
+                <form class="pagination-form" action="page=1">
+                    {% csrf_token %}
+                    <input class="pagination-btn" type="submit" value="第一页">
+                </form>
+                
+                <!-- 上一页按钮 -->
+                <form class="pagination-form" action="page={{previous_page}}">
+                    {% csrf_token %}
+                    <input class="pagination-btn" type="submit" value="上一页">
+                </form>
+                
+                <!-- 下一页按钮 -->
+                <form class="pagination-form" action="page={{next_page}}">
+                    {% csrf_token %}
+                    <input class="pagination-btn" type="submit" value="下一页">
+                </form>
+                
+                <!-- 尾页按钮 -->
+                <form class="pagination-form" action="page={{max_page_num}}">
+                    {% csrf_token %}
+                    <input class="pagination-btn" type="submit" value="尾页">
+                </form>
+                
+                <!-- 当前页码 -->
+                <span class="current-page">
+                    <i class="fas fa-file-alt"></i> 当前页码：<span id="currentPage">{{current_page}}</span>
+                </span>
+                
+                <!-- 页码跳转 -->
+                <form class="pagination-form" action="goto">
+                    <input type="number" min="1" max="{{max_page_num}}" value="1" class="page-input" id="pageInput" name="goto_page">
+                    <input type="submit" class="pagination-btn" value="GO">
+                </form>
+            </div>
+
         </div>
         
         {% comment %} <script src="" async defer></script> {% endcomment %}

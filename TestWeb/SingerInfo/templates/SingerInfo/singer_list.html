@@ -54,7 +54,8 @@
         
         <div>
             <h1 class="music-h1" align="center">⭐歌手列表⭐</h1>
-
+            
+            {% comment %} 歌手列表 {% endcomment %}
             <ol class="music-list" start={{ol_start_num}}>
             {% for singer in singers %}
                 <li>
@@ -77,6 +78,7 @@
             {% endfor %}
             </ul>
 
+            {% comment %} 翻页区 {% endcomment %}
             <div class="pagination-container">
                 <!-- 第一页按钮 -->
                 <form class="pagination-form" action="page=1">

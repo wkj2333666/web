@@ -1,19 +1,84 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
     <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>🏠首页</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- 导入音乐网站专用CSS -->
+        {% load static %}
+        <link rel="stylesheet" href={% static "style.css" %}>
+        <!-- 导入Font Awesome图标 -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <!-- 导入Google字体 -->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+        <style>
+            /* 基础页面样式 */
+            body {
+                background: linear-gradient(135deg, var(--music-darker) 0%, var(--music-dark) 100%);
+                color: var(--music-light);
+                font-family: 'Open Sans', sans-serif;
+                line-height: 1.6;
+                min-height: 100vh;
+                padding: 20px;
+                background-attachment: fixed;
+            }
+            
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+        </style>
     </head>
+
     <body>
-        <p>
-            <div style="font-size: 100px" color=blue>title</div>
-        </p>
-        <ul>
-            {% for song in songs %}
+        <div class="head-bar">
+            <a href="/" class="link-action">
+                🏠首页
+            </a>
+            <a href="/singer/list" class="link-action">
+                🎤歌手列表
+            </a>
+            <a href="/song/list" class="link-action">
+                🎶歌曲列表
+            </a>
+            <span class="link-action">
+                🔍搜索
+            </span>
+        </div>
+        {% comment %} 标题 {% endcomment %}
+        <h1 class="music-h1" align="center">云易网音乐<h1>
+
+        <div align="center">
+            <ul style="list-style: none">
                 <li>
-                    <a href={{song.song_link}}>{{ song.song_name }}</a>
+                    <a href="/" class="link-action">
+                        🏠&emsp;首页&emsp;🏠
+                    </a>
                 </li>
-            {% endfor %}
-        </ul>
+                <li>
+                    <a href="/singer/list" class="link-action">
+                        🎤歌手列表🎤
+                    </a>
+                </li>
+                <li>
+                    <a href="/song/list" class="link-action">
+                        🎶歌曲列表🎶
+                    </a>
+                </li>
+                <li>
+                    <a href="/search" class="link-action">
+                        🔍&emsp;搜索&emsp;🔍
+                    </a>
+                </li>
+            </ul>
+        </div>
+
     </body>
 </html>
