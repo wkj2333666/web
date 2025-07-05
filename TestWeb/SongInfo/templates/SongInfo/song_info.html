@@ -53,6 +53,7 @@
         </div>
 
         <div>
+            {% comment %} 歌曲标题 {% endcomment %}
             <h1 class="music-h1" align="center">
                 🎶
                 <a class="link-action" href="{{org_url}}song?id={{song.song_id}}">
@@ -60,6 +61,7 @@
                 </a>
                 🎼
             </h1>
+            {% comment %} 歌手 {% endcomment %}
             <h2 class="music-h2" align="center">
                 <span>🎤</span>
                 {% for singer in song.singers %}
@@ -74,6 +76,7 @@
                 {% endfor %}
             </h2>
             <div>
+                {% comment %} 歌曲图片 {% endcomment %}
                 <div align="center">
                 {% load static %}
                 {% with song_id_str=song.song_id|stringformat:"s" %}
@@ -84,42 +87,87 @@
                 {% endwith %}
                 {% endwith %}
                 </div>
+                {% comment %} 歌词区 {% endcomment %}
                 <section class="music-lyrics-container">
                     <p class="music-lyrics-title">{{song.song_name}}</p>
                     <pre class="music-lyrics-line">{{song.lyric}}</pre>
                 </section>
 
+                {% comment %} 评论区 {% endcomment %}
                 <section class="music-comment">
                     <p class="music-comment-avatar" style="font-size: 25px">
                         评论
                     </p>
+                    {% comment %} 发表评论 {% endcomment %}
                     <div align="center">
-                        <form action="comment/id={{song.song_id}}" method="post" class="music-comment-form">
+                        <form action="../comment/id={{song.song_id}}" method="post" class="music-comment-form">
                             {% csrf_token %}
                             user:<input type="text" name="user">
                             comment:<input type="text" name="content">
                             <input class="music-btn" type="submit" value="comment">
                         </form>
                     </div>
-                    {% for comment in song.comments reversed %}
-                        <section class="music-comment-container">
-                            <p class="music-comment-username">
-                                {{comment.name}}
-                            </p>
-                            <p class="music-comment-content">
-                                {{comment.content}}
-                            </p>
-                            <p class="music-comment-date" align="right">
-                                {{comment.time}}
-                            </p>
-                            <div align="right">
-                                <form action="del-comment?song_id={{song.song_id}}&index={{forloop.revcounter0}}" method="post">
-                                    {% csrf_token %}
-                                    <input class="del-btn" type="submit" value="删除">
-                                </form>
-                            </div>
-                        </section>
+                    {% comment %} 遍历评论 {% endcomment %}
+                    {% for comment in song.comments%}
+                    <section class="music-comment-container">
+                        <p class="music-comment-username">
+                            {{comment.name}}
+                        </p>
+                        <p class="music-comment-content">
+                            {{comment.content}}
+                        </p>
+                        <p class="music-comment-date" align="right">
+                            {{comment.time}}
+                        </p>
+                        {% comment %} 删除评论 {% endcomment %}
+                        <div align="right">
+                            <form action="../del-comment?song_id={{song.song_id}}&index={{forloop.counter0}}&page={{current_page}}"
+                             method="post">
+                                {% csrf_token %}
+                                <input class="del-btn" type="submit" value="删除">
+                            </form>
+                        </div>
+                    </section>
                     {% endfor %}
+
+                    {% comment %} 翻页 {% endcomment %}
+                    <div class="pagination-container">
+                        <!-- 第一页按钮 -->
+                        <form class="pagination-form" action="page=1">
+                            {% csrf_token %}
+                            <input class="pagination-btn" type="submit" value="第一页">
+                        </form>
+                        
+                        <!-- 上一页按钮 -->
+                        <form class="pagination-form" action="page={{previous_page}}">
+                            {% csrf_token %}
+                            <input class="pagination-btn" type="submit" value="上一页">
+                        </form>
+                        
+                        <!-- 下一页按钮 -->
+                        <form class="pagination-form" action="page={{next_page}}">
+                            {% csrf_token %}
+                            <input class="pagination-btn" type="submit" value="下一页">
+                        </form>
+                        
+                        <!-- 尾页按钮 -->
+                        <form class="pagination-form" action="page={{max_page_num}}">
+                            {% csrf_token %}
+                            <input class="pagination-btn" type="submit" value="尾页">
+                        </form>
+                        
+                        <!-- 当前页码 -->
+                        <span class="current-page">
+                            <i class="fas fa-file-alt"></i> 当前页码：<span id="currentPage">{{current_page}}</span>
+                        </span>
+                        
+                        <!-- 页码跳转 -->
+                        <form class="pagination-form" action="goto">
+                            <input type="number" min="1" max="{{max_page_num}}" value="1" class="page-input" id="pageInput" name="goto_page">
+                            <input type="submit" class="pagination-btn" value="GO">
+                        </form>
+                    </div>
+
                 </section>
 
             </div>

@@ -21,7 +21,9 @@ from . import views
 
 
 urlpatterns = [
-    path("id=<int:song_id>", views.show_song_info),
+    path("id=<int:song_id>", views.show_song_info_redirect),
+    path("id=<int:song_id>/page=<int:page_num>", views.show_song_info),
+    path("id=<int:song_id>/goto", views.goto_page),
     path("list/page=<int:page_num>", views.show_song_list),
     path("list", views.show_song_list_redirect),
     path("list/goto", views.goto_page),
