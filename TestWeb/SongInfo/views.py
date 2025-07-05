@@ -4,7 +4,6 @@ from django.template import loader
 from .models import song_info
 from django.conf import settings
 import datetime
-import json
 # Create your views here.
 
 
@@ -19,12 +18,34 @@ def show_song_info(request, song_id):
     return HttpResponse(template.render(request=request, context=context))
 
 
-def show_song_list(request):
+def show_song_list_redirect(request):
+    return HttpResponseRedirect("list/page=1")
+
+def show_song_list(request, page_num):
     songs = song_info.objects.all()
+    page_size = settings.PAGE_SIZE
+    max_page_num = len(songs) // page_size
+    if (len(songs) % page_size != 0):
+        max_page_num += 1
+    
+    real_page_num = page_num - 1
+    ol_start_num = real_page_num * page_size + 1
+    next_page = page_num + 1
+    previous_page = page_num - 1
+    if (next_page > max_page_num):
+        next_page = max_page_num
+    if (previous_page < 1):
+        previous_page = 1
+    
     template = loader.get_template("SongInfo/song_list.html")
     context = {
-        "songs": songs,
+        "songs": songs[real_page_num * page_size: page_num * page_size],
         "root_url": settings.ROOT_URL,
+        "current_page": page_num,
+        "next_page": next_page,
+        "previous_page": previous_page,
+        "max_page_num": max_page_num,
+        "ol_start_num": ol_start_num,
     }
     return HttpResponse(template.render(request=request, context=context))
 
@@ -60,3 +81,8 @@ def del_comment(request):
     song.save()
 
     return HttpResponseRedirect(redirect_to=f"/song/id={song_id}")
+
+
+def goto_page(request):
+    goto_page = request.GET.get("goto_page")
+    return HttpResponseRedirect(f"page={goto_page}")

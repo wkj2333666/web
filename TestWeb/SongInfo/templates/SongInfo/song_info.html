@@ -93,12 +93,14 @@
                     <p class="music-comment-avatar" style="font-size: 25px">
                         评论
                     </p>
-                    <form action="comment/id={{song.song_id}}" method="post">
-                        {% csrf_token %}
-                        user:<input type="text" name="user">
-                        comment:<input type="text" name="content">
-                        <input class="music-btn" type="submit" value="comment">
-                    </form>
+                    <div align="center">
+                        <form action="comment/id={{song.song_id}}" method="post" class="music-comment-form">
+                            {% csrf_token %}
+                            user:<input type="text" name="user">
+                            comment:<input type="text" name="content">
+                            <input class="music-btn" type="submit" value="comment">
+                        </form>
+                    </div>
                     {% for comment in song.comments reversed %}
                         <section class="music-comment-container">
                             <p class="music-comment-username">
