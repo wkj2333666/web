@@ -28,7 +28,7 @@ pattern = re.compile(r'(.+)[（\(].*[）\)]')
 def remove_name_suffix(row: pd.Series) -> pd.Series:
     match = re.match(pattern, row.song_name)
     if match is not None:
-        row.song_name = match.group(1)
+        row.song_name = match.group(1).strip()
     
     return row
 
@@ -46,10 +46,11 @@ df_cover = df_cover[df_cover > 5]
 
 # %%
 fig = plt.figure()
-ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+ax = fig.add_axes([0.1, 0.2, 0.8, 0.7])
 ax.set_title('上传次数最多的歌')
-bar = ax.bar(df_cover.index, df_cover.values, width=0.4)
+bar = ax.bar(df_cover.index, df_cover.values, width=0.5)
 ax.bar_label(bar)
+plt.xticks(rotation=45, ha='right')
 plt.show()
 
 # %%

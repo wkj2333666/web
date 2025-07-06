@@ -65,10 +65,10 @@ ax = date_count.plot(figsize=(12, 6), grid=True)
 ax.xaxis.set_major_formatter(plt.FixedFormatter(date_count.index.year.unique()))
 ax.xaxis.set_major_locator(plt.MaxNLocator(len(date_count.index.year.unique())))
 
-plt.xticks(rotation=45)
+# plt.xticks(rotation=45)
 plt.xlabel('年份')
 plt.ylabel('歌曲数')
-plt.title('歌曲上传年份分布')
+plt.title('歌曲上传年月分布')
 plt.tight_layout()
 plt.show()
 # %%

@@ -85,7 +85,7 @@ def song_result(request, key_word, result=None, page_num=1, search_time=0, resul
 
 
 def search(request):
-    flag = request.POST.get('flag')
+    flag = int(request.POST.get('flag'))
     # 0 for song and 1 for singer
     key_word = request.POST.get('key_word')
     page_num = request.POST.get('page_num')
