@@ -4,3 +4,4 @@ src/__pycache__/
 src/.ruff_cache/
 src/*.ipynb
 TestWeb/db.sqlite3
+analysis
