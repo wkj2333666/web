@@ -24,9 +24,6 @@ df_song = pd.read_json(src_file, orient='records', lines=True)
 dest_file = config.WORKSPACE + 'analysis/date-rank.csv'
 
 # %%
-df_song
-
-# %%
 def get_date(row: pd.Series) -> pd.Series:
     date = row['comments'][-1]['time'] if row['comments'] else None
     

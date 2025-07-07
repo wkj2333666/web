@@ -3,5 +3,7 @@ data/
 src/__pycache__/
 src/.ruff_cache/
 src/*.ipynb
+!src/singer_pd2sql.ipynb
+!src/song_pd2sql.ipynb
 TestWeb/db.sqlite3
 analysis

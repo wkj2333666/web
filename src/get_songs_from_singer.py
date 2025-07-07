@@ -12,11 +12,8 @@ import config
 # %%
 sex = "女歌手"
 df_singers = pd.read_csv(rf"../data/{sex}.csv")
-df_singers
 
 # %%
-# dict_songs = dict()
-
 
 df_songs = pd.DataFrame({"singer": [], "song_name": [], "song_link": []})
 tqdm.pandas()
@@ -62,8 +59,3 @@ df_singers.progress_apply(get_songs, axis=1)
 
 # %%
 df_songs.to_csv(rf"../data/{sex}歌曲.csv", header=True, index=False)
-
-# %%
-
-
-# %%

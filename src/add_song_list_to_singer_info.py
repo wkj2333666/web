@@ -12,10 +12,6 @@ src_file = config.WORKSPACE + "data/singer_info.json"
 df = pd.read_json(src_file, orient="records", lines=True)
 
 # %%
-df
-
-
-# %%
 def add_songs(row: pd.Series) -> pd.Series:
     response = requests.get(
         url=config.SINGER_ORG_URL,
